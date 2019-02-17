@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { Router, Scene, Tabs } from 'react-native-router-flux';
+import { Router, Scene, Stack } from 'react-native-router-flux';
+
+import { RaceSelectionScreen } from '../raceSelector';
 
 class AppNavigator extends Component {
     static propTypes = {
@@ -10,7 +12,11 @@ class AppNavigator extends Component {
 
     render() {
         return (
-            null
+            <Router>
+                <Stack key='root'>
+                    <Scene component={RaceSelectionScreen} key={'raceSelection'} />
+                </Stack>
+            </Router>
         );
     };
 }
