@@ -6,7 +6,7 @@ import { FlatList } from 'react-native';
 import { RaceCard } from './components/presentation';
 import { Race } from '../entities';
 
-class RaceSelectionScreen extends Component {
+class PlayerSelectionScreen extends Component {
     static propTypes = {
     
     }
@@ -45,4 +45,4 @@ const races = [
     'Embers of Mua',
 ].map(name => new Race(name, require('../../assets/races/hacan.png')));
 
-export default RaceSelectionScreen;
+export default PlayerSelectionScreen;

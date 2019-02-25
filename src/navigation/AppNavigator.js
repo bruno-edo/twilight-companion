@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
 
-import { RaceSelectionScreen } from '../raceSelector';
+import { PlayerSelectionScreen } from '../players';
 
 class AppNavigator extends Component {
     static propTypes = {
@@ -14,7 +14,7 @@ class AppNavigator extends Component {
         return (
             <Router>
                 <Stack key='root'>
-                    <Scene component={RaceSelectionScreen} key={'raceSelection'} />
+                    <Scene component={PlayerSelectionScreen} key={'raceSelection'} />
                 </Stack>
             </Router>
         );
