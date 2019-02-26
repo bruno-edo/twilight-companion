@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { Router, Scene, Stack } from 'react-native-router-flux';
+import { Router, Scene, Tabs } from 'react-native-router-flux';
 
 import { PlayerSelectionScreen } from '../players';
 
@@ -13,9 +13,11 @@ class AppNavigator extends Component {
     render() {
         return (
             <Router>
-                <Stack key='root'>
+                <Tabs
+                key='root'
+                tabBarPosition={'bottom'}>
                     <Scene component={PlayerSelectionScreen} key={'raceSelection'} hideNavBar />
-                </Stack>
+                </Tabs>
             </Router>
         );
     };
