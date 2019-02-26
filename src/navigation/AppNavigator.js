@@ -14,7 +14,7 @@ class AppNavigator extends Component {
         return (
             <Router>
                 <Stack key='root'>
-                    <Scene component={PlayerSelectionScreen} key={'raceSelection'} />
+                    <Scene component={PlayerSelectionScreen} key={'raceSelection'} hideNavBar />
                 </Stack>
             </Router>
         );

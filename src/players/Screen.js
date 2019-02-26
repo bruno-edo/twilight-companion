@@ -15,7 +15,7 @@ class PlayerSelectionScreen extends Component {
 
     componentDidMount() {
         for (let index = 0; index < 6; index++) {
-            this.props.addPlayer(`Player ${index}`);
+            this.props.addPlayer(`Bruno Eduardo D'Angelo de Oliveira ${index}`);
         }
     }
 
