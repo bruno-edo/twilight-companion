@@ -2,47 +2,41 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
 
 import { RaceCard } from './components/presentation';
-import { Race } from '../entities';
+import { Creators as PlayerActionCreators } from './Actions';
 
 class PlayerSelectionScreen extends Component {
     static propTypes = {
-    
+        players: PropTypes.array.isRequired,
+        addPlayer: PropTypes.func.isRequired,
     }
 
-    getRandomRace = () => races.splice(Math.floor(Math.random() * races.length), 1);
-    getRaceCard = (playerName) => (<RaceCard playerName={playerName.item} race={this.getRandomRace()[0]} />)
+    componentDidMount() {
+        for (let index = 0; index < 6; index++) {
+            this.props.addPlayer(`Player ${index}`);
+        }
+    }
 
+    getRaceCard = ({ name, race }) => (<RaceCard playerName={name} race={race} />)
 
     render() {
         return (
             <FlatList
-            data={['player 1', 'player 2']}
-            renderItem={this.getRaceCard}
+            data={this.props.players}
+            renderItem={({ item }) => this.getRaceCard(item)}
             keyExtractor={(item, index) => `${index}`} />
         );
     };
 }
 
-const races = [
-    'Universities of Jol-Nar',
-    'Emirates of Hacan',
-    'Federation of Sol',
-    'Nekro Virus',
-    'Brotherhood of Yin',
-    'Sardak Norr',
-    'L1z1x Mindnet',
-    'Clan of Saar',
-    'Ghosts of Creuss',
-    'Barony of Letnev',
-    'Yssrail Tribes',
-    'Nalu Collective',
-    'Mentak Coalition',
-    'Xxcha Kingdoms',
-    'Arborec',
-    'Winnu',
-    'Embers of Mua',
-].map(name => new Race(name, require('../../assets/races/hacan.png')));
+const mapStateToPros = (state) => ({
+    players: state.players.players,
+});
 
-export default PlayerSelectionScreen;
+const mapDispatchToProps = (dispatch) => ({
+    addPlayer: name => dispatch(PlayerActionCreators.addPlayer(name)),
+});
+
+export default connect(mapStateToPros, mapDispatchToProps)(PlayerSelectionScreen);

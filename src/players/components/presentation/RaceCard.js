@@ -13,14 +13,13 @@ class RaceCard extends Component {
     }
 
     render() {
-        console.log('this.props.race.icon', this.props.race.icon);
         return (
             <Card style={Style.raceCard}>
                 <Card.Title title={this.props.playerName} titleStyle={{ fontSize: 14 }} />
                 <Card.Content style={{ flexDirection: 'row' }}>
                     <Image source={this.props.race.icon} style={{ resizeMode: 'contain', backgroundColor: 'transparent', height: 48, width: 48 }} />
                     <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 10 }}>
-                        <Paragraph>{ this.props.race.getName() }</Paragraph>
+                        <Paragraph>{ this.props.race.name }</Paragraph>
                     </View>
                 </Card.Content>
             </Card>
