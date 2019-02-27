@@ -31,7 +31,7 @@ export const getRandomRace = racePool => racePool.splice(Math.floor(Math.random(
 export const addPlayer = (state, { name }) => {
     const pool = state.racePool.slice();
     const race = getRandomRace(pool);
-    const player = { name, race };
+    const player = { name, race, isSpeaker: false };
     return ({
         ...state,
         racePool: pool,
@@ -42,6 +42,26 @@ export const addPlayer = (state, { name }) => {
     });
 }
 
+export const setSpeaker = (state) => {
+    const speakerIndex = Math.floor(Math.random() * state.players.length);
+
+    console.log('speakerIndex', speakerIndex);
+    return ({
+        ...state,
+        players: state.players.map((player, index) => {
+            if(index === speakerIndex) {
+                return ({
+                    ...player,
+                    isSpeaker: true,
+                });
+            } else {
+                return player;
+            }
+        }),
+    });
+}
+
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ADD_PLAYER]: addPlayer,
+    [Types.SET_SPEAKER]: setSpeaker,
 });

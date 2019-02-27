@@ -11,6 +11,7 @@ class RaceCard extends Component {
     static propTypes = {
         race: PropTypes.object,
         playerName: PropTypes.string.isRequired,
+        isSpeaker: PropTypes.bool.isRequired,
     }
 
     render() {
@@ -28,7 +29,7 @@ class RaceCard extends Component {
                                     style={{ resizeMode: 'contain', backgroundColor: 'transparent', height: 36, width: 36 }} />
                             )
                         }
-                        right={(props) => <Chip style={{ marginHorizonta: 5, marginRight: 10 }} icon={'public'}>Speaker</Chip>}
+                        right={(props) => this.props.isSpeaker ? <Chip style={{ marginHorizonta: 5, marginRight: 10 }} icon={'public'}>Speaker</Chip> : null}
                     />
                     <Card.Content>
                     </Card.Content>

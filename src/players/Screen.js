@@ -16,6 +16,7 @@ class PlayerSelectionScreen extends Component {
     static propTypes = {
         players: PropTypes.array.isRequired,
         addPlayer: PropTypes.func.isRequired,
+        setSpeaker: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -31,9 +32,10 @@ class PlayerSelectionScreen extends Component {
         for (let index = 0; index < 6; index++) {
             this.props.addPlayer(`Bruno Eduardo D'Angelo de Oliveira ${index}`);
         }
+        this.props.setSpeaker();
     }
 
-    getRaceCard = (name, race) => (<RaceCard key={name} playerName={name} race={race} />)
+    getRaceCard = (name, race, isSpeaker) => (<RaceCard key={name} playerName={name} race={race} isSpeaker={isSpeaker} />)
 
     render() {
         const headerHeight = this.state.scrollY.interpolate({
@@ -57,7 +59,7 @@ class PlayerSelectionScreen extends Component {
                 onContentSizeChange={this.onContentSizeChange}>
                     {
                         this.props.players.map(element => {
-                            return this.getRaceCard(element.name, element.race);
+                            return this.getRaceCard(element.name, element.race, element.isSpeaker);
                         })
                     }
                 </ScrollView>
@@ -72,6 +74,7 @@ const mapStateToPros = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     addPlayer: name => dispatch(PlayerActionCreators.addPlayer(name)),
+    setSpeaker: () => dispatch(PlayerActionCreators.setSpeaker()),
 });
 
 export default connect(mapStateToPros, mapDispatchToProps)(PlayerSelectionScreen);
