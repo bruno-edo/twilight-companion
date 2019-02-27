@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Companion app for TI4.",
+    "githubUrl": "https://github.com/bruno-edo/twilight-companion"
   }
 }

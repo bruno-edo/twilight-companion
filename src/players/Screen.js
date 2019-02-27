@@ -33,7 +33,7 @@ class PlayerSelectionScreen extends Component {
         }
     }
 
-    getRaceCard = (name, race) => (<RaceCard playerName={name} race={race} />)
+    getRaceCard = (name, race) => (<RaceCard key={name} playerName={name} race={race} />)
 
     render() {
         const headerHeight = this.state.scrollY.interpolate({
@@ -48,7 +48,7 @@ class PlayerSelectionScreen extends Component {
                 >
                 </Animated.View>
                 <ScrollView
-                contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT + 30 }}
+                contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT + 30, paddingBottom: 30 }}
                 scrollEventThrottle={16}
                 onScroll={Animated.event(
                     [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],

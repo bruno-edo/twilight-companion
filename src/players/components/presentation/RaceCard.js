@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { View, Image } from 'react-native';
-import { Card, Paragraph, Subheading, Button, IconButton   } from 'react-native-paper';
+import { Image, View } from 'react-native';
+import { Card, Chip } from 'react-native-paper';
+import { SwipeRow } from 'react-native-swipe-list-view';
 
 import Style from '../../style';
 
@@ -14,29 +15,25 @@ class RaceCard extends Component {
 
     render() {
         return (
-            <Card style={Style.raceCard}>
-                <Card.Title title={this.props.race.name} subtitle={this.props.playerName}
-                left={
-                    (props) => (
-                        <Image
-                        source={this.props.race.icon}
-                        style={{ resizeMode: 'contain', backgroundColor: 'transparent', height: 36, width: 36 }} />
-                    )
-                }
-                right={(props) => <IconButton {...props} icon="more-vert" onPress={() => {}} />}
-                />
-                {/* <Card.Content style={{ flexDirection: 'row' }}>
-                    <Image source={this.props.race.icon} style={{ resizeMode: 'contain', backgroundColor: 'transparent', height: 48, width: 48 }} />
-                    <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 10 }}>
-                        <Subheading>{this.props.playerName}</Subheading>
-                        <Paragraph>{ this.props.race.name }</Paragraph>
-                    </View>
-                </Card.Content>
-                <Card.Actions>
-                    <Button>Cancel</Button>
-                    <Button>Ok</Button>
-                </Card.Actions> */}
-            </Card>
+            <SwipeRow leftOpenValue={75} rightOpenValue={-75}>
+                <View>
+
+                </View>
+                <Card style={Style.raceCard}>
+                    <Card.Title title={this.props.race.name} subtitle={this.props.playerName}
+                        left={
+                            (props) => (
+                                <Image
+                                    source={this.props.race.icon}
+                                    style={{ resizeMode: 'contain', backgroundColor: 'transparent', height: 36, width: 36 }} />
+                            )
+                        }
+                        right={(props) => <Chip style={{ marginHorizonta: 5, marginRight: 10 }} icon={'public'}>Speaker</Chip>}
+                    />
+                    <Card.Content>
+                    </Card.Content>
+                </Card>
+            </SwipeRow>
         );
     };
 }
