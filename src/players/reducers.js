@@ -26,7 +26,8 @@ export const INITIAL_STATE = {
     players: [],
 };
 
-export const getRandomRace = racePool => racePool.splice(Math.floor(Math.random() * racePool.length), 1)[0];
+export const getRandomArrayIndex = (array) => Math.floor(Math.random() * array.length);
+export const getRandomRace = racePool => racePool.splice(getRandomArrayIndex(racePool), 1)[0];
 
 export const addPlayer = (state, { name }) => {
     const pool = state.racePool.slice();
@@ -43,9 +44,8 @@ export const addPlayer = (state, { name }) => {
 }
 
 export const setSpeaker = (state) => {
-    const speakerIndex = Math.floor(Math.random() * state.players.length);
+    const speakerIndex = getRandomArrayIndex(state.players);
 
-    console.log('speakerIndex', speakerIndex);
     return ({
         ...state,
         players: state.players.map((player, index) => {
