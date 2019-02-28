@@ -16,6 +16,7 @@ class PlayerSelectionScreen extends Component {
     static propTypes = {
         players: PropTypes.array.isRequired,
         addPlayer: PropTypes.func.isRequired,
+        removePlayer: PropTypes.func.isRequired,
         setSpeaker: PropTypes.func.isRequired,
     }
 
@@ -35,7 +36,10 @@ class PlayerSelectionScreen extends Component {
         this.props.setSpeaker();
     }
 
-    getRaceCard = (name, race, isSpeaker) => (<RaceCard key={name} playerName={name} race={race} isSpeaker={isSpeaker} />)
+    getRaceCard = (name, race, isSpeaker) => (
+        <RaceCard
+        key={name} playerName={name} race={race} isSpeaker={isSpeaker}
+        callbackRemovePlayer={this.props.removePlayer} />)
 
     render() {
         const headerHeight = this.state.scrollY.interpolate({
@@ -74,6 +78,7 @@ const mapStateToPros = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     addPlayer: name => dispatch(PlayerActionCreators.addPlayer(name)),
+    removePlayer: id => dispatch(PlayerActionCreators.removePlayer(id)),
     setSpeaker: () => dispatch(PlayerActionCreators.setSpeaker()),
 });
 

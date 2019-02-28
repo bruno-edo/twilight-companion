@@ -43,6 +43,19 @@ export const addPlayer = (state, { name }) => {
     });
 }
 
+export const removePlayer = (state, { id }) => {
+    /*
+        TODO: If speaker is removed appoint new random speaker.
+    */
+    const index = state.players.findIndex(player => player.name === id);
+    return ({
+        ...state,
+        players: [
+            ...state.players.slice(0, index), ...state.players.slice(index + 1),
+        ],
+    });
+}
+
 export const setSpeaker = (state) => {
     const speakerIndex = getRandomArrayIndex(state.players);
 
@@ -63,5 +76,6 @@ export const setSpeaker = (state) => {
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ADD_PLAYER]: addPlayer,
+    [Types.REMOVE_PLAYER]: removePlayer,
     [Types.SET_SPEAKER]: setSpeaker,
 });
