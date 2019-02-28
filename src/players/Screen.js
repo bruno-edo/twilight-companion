@@ -30,10 +30,12 @@ class PlayerSelectionScreen extends Component {
     }
 
     componentDidMount() {
-        for (let index = 0; index < 6; index++) {
-            this.props.addPlayer(`Bruno Eduardo D'Angelo de Oliveira ${index}`);
+        if(this.props.players.length  === 0) {
+            for (let index = 0; index < 6; index++) {
+                this.props.addPlayer(`Bruno Eduardo D'Angelo de Oliveira ${index}`);
+            }
+            this.props.setSpeaker();
         }
-        this.props.setSpeaker();
     }
 
     getRaceCard = (name, race, isSpeaker) => (
@@ -47,6 +49,7 @@ class PlayerSelectionScreen extends Component {
             outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
             extrapolate: 'clamp'
         })
+        console.log('this.props.players.length', this.props.players.length);
         return (
             <View style={{ flex: 1 }}>
                 <Animated.View
@@ -54,7 +57,7 @@ class PlayerSelectionScreen extends Component {
                 >
                 </Animated.View>
                 <ScrollView
-                contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT + 30, paddingBottom: 30 }}
+                contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT + 30 }}
                 scrollEventThrottle={16}
                 onScroll={Animated.event(
                     [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],

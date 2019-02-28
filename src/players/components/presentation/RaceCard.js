@@ -20,6 +20,7 @@ class RaceCard extends Component {
         super(props);
         this.cardAnimatedValue = new Animated.Value(1);
         this.animationIsRunning = false;
+        this.heightAnimation = new Animated.Value();
     }
 
     rerollButtonPress = () => {
@@ -29,26 +30,40 @@ class RaceCard extends Component {
     onSwipeValueChange = (swipeData) => {
         const { key, value } = swipeData;
         // 375 or however large your screen is (i.e. Dimensions.get('window').width)
-        if (value > 225 && !this.animationIsRunning) {
+        if (value > 150 && !this.animationIsRunning) {
+            // this.animationIsRunning = true;
+            // Animated.timing(this.cardAnimatedValue, { toValue: 0, duration: 250 }).start(() => {
+            //     this.animationIsRunning = false;
+            //     this.props.callbackRemovePlayer(this.props.playerName);
+            // });
             this.animationIsRunning = true;
-            Animated.timing(this.cardAnimatedValue, { toValue: 0, duration: 250 }).start(() => {
-                this.animationIsRunning = false;
-                this.props.callbackRemovePlayer(this.props.playerName);
-            });
+            this.heightAnimation.setValue(this.maxHeight);  //Step 3
+            Animated.timing(     //Step 4
+                this.heightAnimation,
+                {
+                    toValue: 0,
+                    duration: 250,
+                }
+            ).start(() => console.log('end'));
         }
     }
 
     render() {
         return (
-            <Animated.View style={{
-                opacity: this.cardAnimatedValue, transform: [{
-                    scaleY: this.cardAnimatedValue.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 1]
-                    })
-                }]
-            }}>
-                <SwipeRow rightOpenValue={-75} stopLeftSwipe={250} stopRightSwipe={-75} ref={ref => this.swipeRowRef = ref} onSwipeValueChange={this.onSwipeValueChange}>
+            // <Animated.View style={{
+            //     opacity: this.cardAnimatedValue, transform: [{
+            //         scaleY: this.cardAnimatedValue.interpolate({
+            //             inputRange: [0, 1],
+            //             outputRange: [0, 1]
+            //         })
+            //     }]
+            // }}>
+            <Animated.View onLayout={(event) => {
+                // console.log('event.nativeEvent.layout.height', event.nativeEvent.layout.height);
+                this.maxHeight = event.nativeEvent.layout.height;
+            }}
+            style={{ height: this.heightAnimation }}>
+                <SwipeRow rightOpenValue={-75} stopLeftSwipe={250} stopRightSwipe={-75} ref={ref => this.swipeRowRef = ref} onSwipeValueChange={this.onSwipeValueChange} onBlur={() => console.log('blur')}>
                     <View style={[Style.raceCardUnderlay, Style.cardBorderRadius, { flex: 1, flexDirection: 'row' }]}>
                         <View style={[Style.cardBorderRadiusLeft, { flex: 1, backgroundColor: 'red' }]}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start', marginLeft: 20 }}>

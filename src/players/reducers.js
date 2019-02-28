@@ -48,12 +48,17 @@ export const removePlayer = (state, { id }) => {
         TODO: If speaker is removed appoint new random speaker.
     */
     const index = state.players.findIndex(player => player.name === id);
-    return ({
-        ...state,
-        players: [
-            ...state.players.slice(0, index), ...state.players.slice(index + 1),
-        ],
-    });
+    console.log('index', index);
+    if (index < 0) {
+        return state;
+    } else {
+        return ({
+            ...state,
+            players: [
+                ...state.players.slice(0, index), ...state.players.slice(index + 1),
+            ],
+        });
+    }
 }
 
 export const setSpeaker = (state) => {
