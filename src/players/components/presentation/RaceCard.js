@@ -18,7 +18,6 @@ class RaceCard extends Component {
 
     constructor(props) {
         super(props);
-        this.cardAnimatedValue = new Animated.Value(1);
         this.animationIsRunning = false;
         this.heightAnimation = new Animated.Value();
     }
@@ -28,38 +27,23 @@ class RaceCard extends Component {
     }
 
     onSwipeValueChange = (swipeData) => {
-        const { key, value } = swipeData;
-        // 375 or however large your screen is (i.e. Dimensions.get('window').width)
+        const { value } = swipeData;
         if (value > 150 && !this.animationIsRunning) {
-            // this.animationIsRunning = true;
-            // Animated.timing(this.cardAnimatedValue, { toValue: 0, duration: 250 }).start(() => {
-            //     this.animationIsRunning = false;
-            //     this.props.callbackRemovePlayer(this.props.playerName);
-            // });
             this.animationIsRunning = true;
-            this.heightAnimation.setValue(this.maxHeight);  //Step 3
-            Animated.timing(     //Step 4
+            this.heightAnimation.setValue(this.maxHeight);
+            Animated.timing(
                 this.heightAnimation,
                 {
                     toValue: 0,
-                    duration: 250,
+                    duration: 200,
                 }
-            ).start(() => console.log('end'));
+            ).start(() => this.props.callbackRemovePlayer(this.props.playerName));
         }
     }
 
     render() {
         return (
-            // <Animated.View style={{
-            //     opacity: this.cardAnimatedValue, transform: [{
-            //         scaleY: this.cardAnimatedValue.interpolate({
-            //             inputRange: [0, 1],
-            //             outputRange: [0, 1]
-            //         })
-            //     }]
-            // }}>
             <Animated.View onLayout={(event) => {
-                // console.log('event.nativeEvent.layout.height', event.nativeEvent.layout.height);
                 this.maxHeight = event.nativeEvent.layout.height;
             }}
             style={{ height: this.heightAnimation }}>
