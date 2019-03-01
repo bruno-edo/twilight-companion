@@ -45,18 +45,24 @@ export const addPlayer = (state, { name }) => {
 
 export const removePlayer = (state, { id }) => {
     /*
-        TODO: If speaker is removed appoint new random speaker.
+        TODO: If speaker is removed appoint new random speaker. Add race back to racePool
     */
     const index = state.players.findIndex(player => player.name === id);
-    console.log('index', index);
+
     if (index < 0) {
         return state;
     } else {
+        const { race } = state.players[index];
+
         return ({
             ...state,
             players: [
                 ...state.players.slice(0, index), ...state.players.slice(index + 1),
             ],
+            racePool: [
+                ...state.racePool,
+                race,
+            ]
         });
     }
 }
