@@ -24,27 +24,34 @@ export const INITIAL_STATE = {
         new Race('Embers of Muaat', require('../../assets/races/muaat.png')),
     ],
     players: [],
+    currentId: 0,
 };
 
 export const getRandomArrayIndex = (array) => Math.floor(Math.random() * array.length);
 export const getRandomRace = racePool => racePool.splice(getRandomArrayIndex(racePool), 1)[0];
 
+/*
+    TODO: add id generation for each player
+*/
 export const addPlayer = (state, { name }) => {
     const pool = state.racePool.slice();
     const race = getRandomRace(pool);
-    const player = { name, race, isSpeaker: false };
+    const id = state.currentId + 1;
+    const player = { name, race, isSpeaker: false, id };
+
     return ({
         ...state,
         racePool: pool,
         players: [
             ...state.players,
             player,
-        ]
+        ],
+        currentId: id,
     });
-}
+};
 
 export const removePlayer = (state, { id }) => {
-    const index = state.players.findIndex(player => player.name === id);
+    const index = state.players.findIndex(player => player.id === id);
 
     if (index < 0) {
         return state;
@@ -67,7 +74,7 @@ export const removePlayer = (state, { id }) => {
             ]
         });
     }
-}
+};
 
 export const setSpeaker = (state) => {
     const speakerIndex = getRandomArrayIndex(state.players);
@@ -85,7 +92,7 @@ export const setSpeaker = (state) => {
             }
         }),
     });
-}
+};
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ADD_PLAYER]: addPlayer,

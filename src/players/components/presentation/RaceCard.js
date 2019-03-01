@@ -11,6 +11,7 @@ import Style from '../../style';
 class RaceCard extends Component {
     static propTypes = {
         race: PropTypes.object,
+        id: PropTypes.number.isRequired,
         playerName: PropTypes.string.isRequired,
         isSpeaker: PropTypes.bool.isRequired,
         callbackRemovePlayer: PropTypes.func.isRequired,
@@ -37,7 +38,7 @@ class RaceCard extends Component {
                     toValue: 0,
                     duration: 200,
                 }
-            ).start(() => this.props.callbackRemovePlayer(this.props.playerName));
+            ).start(() => this.props.callbackRemovePlayer(this.props.id));
         }
     }
 

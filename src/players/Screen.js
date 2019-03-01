@@ -38,9 +38,9 @@ class PlayerSelectionScreen extends Component {
         }
     }
 
-    getRaceCard = (name, race, isSpeaker) => (
+    getRaceCard = ({id, name, race, isSpeaker}) => (
         <RaceCard
-        key={name} playerName={name} race={race} isSpeaker={isSpeaker}
+        key={id} id={id} playerName={name} race={race} isSpeaker={isSpeaker}
         callbackRemovePlayer={this.props.removePlayer} />)
 
     render() {
@@ -49,7 +49,7 @@ class PlayerSelectionScreen extends Component {
             outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
             extrapolate: 'clamp'
         })
-        console.log('this.props.players.length', this.props.players.length);
+
         return (
             <View style={{ flex: 1 }}>
                 <Animated.View
@@ -66,7 +66,7 @@ class PlayerSelectionScreen extends Component {
                 onContentSizeChange={this.onContentSizeChange}>
                     {
                         this.props.players.map(element => {
-                            return this.getRaceCard(element.name, element.race, element.isSpeaker);
+                            return this.getRaceCard(element);
                         })
                     }
                 </ScrollView>
