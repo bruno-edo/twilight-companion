@@ -34,14 +34,14 @@ export const getRandomRace = racePool => racePool.splice(getRandomArrayIndex(rac
     TODO: add id generation for each player
 */
 export const addPlayer = (state, { name }) => {
-    const pool = state.racePool.slice();
-    const race = getRandomRace(pool);
+    const racePool = state.racePool.slice();
+    const race = getRandomRace(racePool);
     const id = state.currentId + 1;
     const player = { name, race, isSpeaker: false, id };
 
     return ({
         ...state,
-        racePool: pool,
+        racePool,
         players: [
             ...state.players,
             player,
@@ -94,8 +94,34 @@ export const setSpeaker = (state) => {
     });
 };
 
+export const rerollRace = (state, { id }) => {
+    const playerIndex = state.players.findIndex(player => player.id === id);
+    const selectedPlayer = state.players[playerIndex];
+    const { race: oldRace } = selectedPlayer;
+    const racePool = state.racePool.slice();
+    const newRace = getRandomRace(racePool);
+    racePool.push(oldRace);
+
+    return ({
+        ...state,
+        players: state.players.map((player, index) => {
+            if (index === playerIndex) {
+                return ({
+                    ...player,
+                    race: newRace,
+                });
+            } else {
+                return player;
+            }
+        }),
+        racePool,
+    })
+
+}
+
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ADD_PLAYER]: addPlayer,
     [Types.REMOVE_PLAYER]: removePlayer,
     [Types.SET_SPEAKER]: setSpeaker,
+    [Types.REROLL_RACE]: rerollRace,
 });

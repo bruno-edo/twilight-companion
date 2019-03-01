@@ -18,6 +18,7 @@ class PlayerSelectionScreen extends Component {
         addPlayer: PropTypes.func.isRequired,
         removePlayer: PropTypes.func.isRequired,
         setSpeaker: PropTypes.func.isRequired,
+        rerollRace: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -41,7 +42,8 @@ class PlayerSelectionScreen extends Component {
     getRaceCard = ({id, name, race, isSpeaker}) => (
         <RaceCard
         key={id} id={id} playerName={name} race={race} isSpeaker={isSpeaker}
-        callbackRemovePlayer={this.props.removePlayer} />)
+        callbackRemovePlayer={this.props.removePlayer}
+        callbackReroll={this.props.rerollRace} />)
 
     render() {
         const headerHeight = this.state.scrollY.interpolate({
@@ -83,6 +85,7 @@ const mapDispatchToProps = (dispatch) => ({
     addPlayer: name => dispatch(PlayerActionCreators.addPlayer(name)),
     removePlayer: id => dispatch(PlayerActionCreators.removePlayer(id)),
     setSpeaker: () => dispatch(PlayerActionCreators.setSpeaker()),
+    rerollRace: id => dispatch(PlayerActionCreators.rerollRace(id)),
 });
 
 export default connect(mapStateToPros, mapDispatchToProps)(PlayerSelectionScreen);

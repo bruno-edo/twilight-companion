@@ -15,6 +15,7 @@ class RaceCard extends Component {
         playerName: PropTypes.string.isRequired,
         isSpeaker: PropTypes.bool.isRequired,
         callbackRemovePlayer: PropTypes.func.isRequired,
+        callbackReroll: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -24,6 +25,7 @@ class RaceCard extends Component {
     }
 
     rerollButtonPress = () => {
+        this.props.callbackReroll(this.props.id);
         this.swipeRowRef.closeRow();
     }
 
@@ -56,7 +58,8 @@ class RaceCard extends Component {
                                 <Text>Delete</Text>
                             </View>
                         </View>
-                        <TouchableRipple style={[Style.cardBorderRadiusRight, { width: 80, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center' }]} onPress={() => console.log('reroll')}>
+                        <TouchableRipple style={[Style.cardBorderRadiusRight, { width: 80, justifyContent: 'center', alignItems: 'center' }]}
+                        onPress={this.rerollButtonPress}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <MaterialIcons name={'shuffle'} size={24} />
                                 <Text>Reroll</Text>
