@@ -30,9 +30,6 @@ export const INITIAL_STATE = {
 export const getRandomArrayIndex = (array) => Math.floor(Math.random() * array.length);
 export const getRandomRace = racePool => racePool.splice(getRandomArrayIndex(racePool), 1)[0];
 
-/*
-    TODO: add id generation for each player
-*/
 export const addPlayer = (state, { name }) => {
     const racePool = state.racePool.slice();
     const race = getRandomRace(racePool);

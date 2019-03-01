@@ -5,8 +5,11 @@ import { Constants as ExpoConstants } from 'expo';
 import { View, Animated, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
+import Style from './style';
+
 import { RaceCard } from './components/presentation';
 import { Creators as PlayerActionCreators } from './Actions';
+import { GeneralStyles } from '../Utils';
 
 const HEADER_EXPANDED_HEIGHT = 300 + ExpoConstants.statusBarHeight;
 const HEADER_COLLAPSED_HEIGHT = 30 + ExpoConstants.statusBarHeight;
@@ -39,11 +42,15 @@ class PlayerSelectionScreen extends Component {
         }
     }
 
-    getRaceCard = ({id, name, race, isSpeaker}) => (
+    getRaceCard = ({ id, name, race, isSpeaker }) => (
         <RaceCard
-        key={id} id={id} playerName={name} race={race} isSpeaker={isSpeaker}
+        key={id} id={id}
+        playerName={name}
+        race={race}
+        isSpeaker={isSpeaker}
         callbackRemovePlayer={this.props.removePlayer}
-        callbackReroll={this.props.rerollRace} />)
+        callbackReroll={this.props.rerollRace} />
+    );
 
     render() {
         const headerHeight = this.state.scrollY.interpolate({
@@ -53,10 +60,12 @@ class PlayerSelectionScreen extends Component {
         })
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={GeneralStyles.container}>
                 <Animated.View
-                    style={{ height: headerHeight, backgroundColor: 'red', width: SCREEN_WIDTH, position: 'absolute', top: 0, left: 0, overflow: 'hidden', zIndex: 1 }}
-                >
+                style={[Style.screenHeader, { height: headerHeight, backgroundColor: 'red', width: SCREEN_WIDTH }]}>
+                {/* 
+                    TODO: add header menu content
+                */}
                 </Animated.View>
                 <ScrollView
                 contentContainerStyle={{ paddingTop: HEADER_EXPANDED_HEIGHT + 30 }}
